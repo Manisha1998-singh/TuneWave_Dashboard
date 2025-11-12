@@ -1,3 +1,5 @@
+# TuneWave_Dashboard
+
 https://cors-anywhere.herokuapp.com/ should i add every time for cors issues with every url is it naccesy or it is right?
 
 Good question, Mannu 🌟 — using
