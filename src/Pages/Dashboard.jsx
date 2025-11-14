@@ -3,8 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/authSlice";
 import { useNavigate } from "react-router-dom";
 import MusicList from "../Components/MusicList";
+import { Outlet, Link } from "react-router-dom";
+import Search from "./Search";
 import { useState } from "react";
 function Dashboard() {
+  const [showSearch, setShowSearch] = useState(false);
+  const toggleSearch = () => {
+    setShowSearch((prev) => !prev);
+  };
   const [selectSong, setSelectSong] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,6 +23,18 @@ function Dashboard() {
 
   return (
     <div>
+      <main className="flex-1 p-5">
+        {/* Collapsible search section */}
+        <div
+          className={`overflow-hidden transition-all duration-500 ${
+            showSearch ? "max-h-500 " : "max-h-0"
+          } bg-gray-800 p-4 rounded mb-4`}>
+          <Outlet /> {/* Search content goes here */}
+        </div>
+
+        {/* Other nested pages (Home, Liked, etc.) */}
+        {!showSearch && <Outlet />}
+      </main>
       <section className="relative flex h-screen w-full">
         <div className="absolute bottom-0 z-40 flex h-[90px] w-full items-center justify-between border-t border-t-white/20 bg-zinc-900 pb-5 pt-3">
           <div className="flex items-center gap-4 px-3">
@@ -28,8 +46,12 @@ function Dashboard() {
               }
             />
             <div>
-              <h1 className="font-medium text-white">Track No.1</h1>
-              <h1 className="text-sm font-normal text-white">Artist</h1>
+              <div className="font-medium text-white">
+                <b>{selectSong?.trackName || "Track 1"}</b>
+                <p className="text-sm font-normal text-white">
+                  {selectSong?.artistName || "Artist Name"}
+                </p>
+              </div>
             </div>
             <div>
               <button>
@@ -263,8 +285,17 @@ function Dashboard() {
                   d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
                 />
               </svg>
-
-              <a className="font-medium">Search</a>
+              {/* toggle search */}
+              <button
+                onClick={toggleSearch}
+                className="font-medium text-white hover:text-green-500">
+                Search
+              </button>
+              <Link
+                to="/search"
+                className="font-medium text-white hover:text-green-500">
+                Search
+              </Link>
             </li>
             <li className="flex cursor-pointer items-center justify-start gap-5 py-3 px-4 text-white/80 transition-all hover:text-white">
               <svg
@@ -358,10 +389,7 @@ function Dashboard() {
                     />
                   </svg>
                 </button>
-                <input
-                  className="rounded-full pl-4 focus:outline-none"
-                  placeholder="Search Songs"
-                />
+                <Search />
               </div>
 
               <div className="flex cursor-pointer items-center gap-3 rounded-full bg-black px-4">
