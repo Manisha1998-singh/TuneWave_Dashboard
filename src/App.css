@@ -300,3 +300,15 @@ body {
     display: block;
   }
 }
+.transition-all {
+  transition: all 0.5s ease;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.max-h-0 {
+  max-height: 0;
+}
+.max-h-500 {
+  max-height: 500px;
+}

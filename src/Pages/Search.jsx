@@ -10,8 +10,12 @@ function Search() {
   const dispatch = useDispatch();
   //const { error, loading } = useSelector((state) => state.music);
   const [artist, setArtist] = useState("");
+  const [searched, setSearched] = useState(false);
+
   function handleSearch() {
+    if (artist.trim() === "") return;
     dispatch(fetchSongs(artist));
+    setSearched(true);
   }
 
   return (
@@ -26,9 +30,7 @@ function Search() {
 
       <button onClick={handleSearch}>Search</button>
 
-      {/* {loading && <p>Loading songs...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>} */}
-      <MusicList></MusicList>
+      {searched && <MusicList />}
     </div>
   );
 }
