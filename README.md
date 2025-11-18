@@ -40,7 +40,7 @@ proxy: {
 "/api": {
 target: "https://itunes.apple.com",
 changeOrigin: true,
-rewrite: (path) => path.replace(/^\/api/, ""),
+rewrite: (path) => path.replace(/^\/api/, "fetch("/api/search?term=arijit+singh&entity=song&limit=150");"),
 },
 },
 },
@@ -187,3 +187,17 @@ To avoid errors:
 HTML must be valid.
 
 DOM structure on the server must match what React renders on the client.
+⭐ Super Simple Comparison
+useState
+Click → state changes → React re-renders → UI changes
+
+useRef
+Click → ref changes → NO re-render → UI same
+
+🎉 Want me to show the SAME example with a play button?
+
+Like:
+
+one version using useState (UI changes)
+
+one version using useRef (UI does not change)

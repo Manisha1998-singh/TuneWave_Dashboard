@@ -3,7 +3,7 @@ export const fetchSongs = createAsyncThunk(
   "music/fetchSongs",
   async (artistName) => {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://itunes.apple.com/search?term=${artistName}&entity=song&limit=150`
+      `/api/search?term=${artistName}&entity=song&limit=150`
     );
 
     const data = await response.json();
