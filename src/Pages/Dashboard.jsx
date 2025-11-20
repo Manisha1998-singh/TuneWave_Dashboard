@@ -418,7 +418,12 @@ function Dashboard() {
                 </button>
               </div>
             </nav>
-
+            <div className="mx-auto my-5">
+              <h1 className="text-4xl font-bold text-white">
+                {selectSong?.trackName}
+              </h1>
+              <p className="text-white/70">{selectSong?.artistName}</p>
+            </div>
             <div
               className="mx-auto my-5 h-[250px] w-11/12 bg-white bg-cover bg-center rounded-xl shadow-md"
               style={{
