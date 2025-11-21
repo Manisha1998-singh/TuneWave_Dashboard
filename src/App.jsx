@@ -4,6 +4,7 @@ import Search from "./Pages/Search";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./App.css";
+import Playlist from "./Pages/Playlist";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -22,6 +23,7 @@ function App() {
           <Route path="search" element={<Search />} />
           {/* <Route path="liked" element={<LikedSongs />} />
       <Route index element={<Home />} /> default page */}
+          <Route path="playlist" element={<Playlist />} />
         </Route>
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
