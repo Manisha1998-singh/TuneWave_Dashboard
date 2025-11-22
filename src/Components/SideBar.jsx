@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-function SideBar() {
+function SideBar({ activeTab, setActiveTab }) {
   return (
     <div className="h-full w-3/12 min-w-[198px] max-w-[330px] bg-black px-4">
       <div>
@@ -16,7 +15,7 @@ function SideBar() {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+              d="M9 19V6l11-2v13M9 19a3 3 0 11-6 0 3 3 0 016 0zm11-2a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg>
         </button>
@@ -36,7 +35,15 @@ function SideBar() {
               d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
             />
           </svg>
-          <a className="font-medium">Home</a>
+          <button
+            className={`font-medium text-white hover:text-green-500 ${
+              activeTab === "home" ? "bg-gray-800" : ""
+            }`}
+            activeTab={activeTab}
+            onClick={() => setActiveTab("home")}>
+            {" "}
+            Home{" "}
+          </button>
         </li>
         <li className="flex cursor-pointer items-center justify-start gap-5 py-3 px-4 text-white/80 transition-all hover:text-white">
           <svg
@@ -58,11 +65,16 @@ function SideBar() {
             className="font-medium text-white hover:text-green-500">
             Search
           </button> */}
-          <Link
-            to="/search"
-            className="font-medium text-white hover:text-green-500">
-            Search
-          </Link>
+
+          <button
+            className={`font-medium text-white hover:text-green-500 ${
+              activeTab === " search" ? "bg-gray-800" : ""
+            }`}
+            activeTab={activeTab}
+            onClick={() => setActiveTab(" search")}>
+            {" "}
+            Search{" "}
+          </button>
         </li>
         <li className="flex cursor-pointer items-center justify-start gap-5 py-3 px-4 text-white/80 transition-all hover:text-white">
           <svg
@@ -79,9 +91,15 @@ function SideBar() {
             />
           </svg>
 
-          <Link to="playlist" className="font-medium">
-            Go to Playlist
-          </Link>
+          <button
+            className={`font-medium text-white hover:text-green-500 ${
+              activeTab === " playlist" ? "bg-gray-800" : ""
+            }`}
+            activeTab={activeTab}
+            onClick={() => setActiveTab(" playlist")}>
+            {" "}
+            Playlist{" "}
+          </button>
         </li>
       </ul>
       <ul className="mt-5 flex flex-col gap-2">
@@ -117,7 +135,14 @@ function SideBar() {
             />
           </svg>
 
-          <a className="font-medium">Liked Songs</a>
+          <button
+            className={`font-medium text-white hover:text-green-500 ${
+              activeTab === " likedSongs" ? "bg-gray-800" : ""
+            }`}
+            onClick={() => setActiveTab(" likedSongs")}>
+            {" "}
+            Liked Songs{" "}
+          </button>
         </li>
       </ul>
       <hr className="mt-5 border-white/30" />

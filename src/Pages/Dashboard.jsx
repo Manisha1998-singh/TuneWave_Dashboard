@@ -8,12 +8,14 @@ import Search from "./Search";
 import { useState } from "react";
 
 import SideBar from "../Components/SideBar";
+import Playlist from "./Playlist";
 function Dashboard() {
   //const [showSearch, setShowSearch] = useState(false);
   // const toggleSearch = () => {
   //   setShowSearch((prev) => !prev);
   // };
   const [selectSong, setSelectSong] = useState(null);
+  const [activeTab, setActiveTab] = useState("home");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
@@ -24,8 +26,13 @@ function Dashboard() {
   };
 
   return (
-    <div>
-      <SideBar />
+    <div className="div-dashboard">
+      <SideBar setActiveTab={setActiveTab} />
+      <div className="flex-1 bg-gray-900 p-6 text-white">
+        {activeTab === "likedSongs" && <LikedSongs />}
+        {activeTab === "search" && <Search />}
+        {activeTab === "playlist" && <Playlist />}
+      </div>
       <Outlet />
       {/* <main className="flex-1 p-5">
         {/* Collapsible search section */}
@@ -244,8 +251,8 @@ function Dashboard() {
           <div className="mx-auto h-full w-11/12 py-2">
             <nav className="flex w-full items-start justify-between">
               <div className="flex gap-5">
-                <button className="flex items-center justify-center rounded-full bg-black p-2">
-                  <svg
+                {/* <button className="flex items-center justify-center rounded-full bg-black p-2"> */}
+                {/* <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -259,21 +266,21 @@ function Dashboard() {
                     />
                   </svg>
                 </button>
-                <button className="flex items-center justify-center rounded-full bg-black p-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="h-6 w-6 stroke-white">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                    />
-                  </svg>
-                </button>
+                <button className="flex items-center justify-center rounded-full bg-black p-2">*/}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="h-6 w-6 stroke-white">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+                {/* </button> */}
                 <Search />
               </div>
 
@@ -317,7 +324,6 @@ function Dashboard() {
                   "https://images.unsplash.com/photo-1662560884455-e89e8dcfa7ea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80"
                 })`,
               }}></div>
-
             <section className="song-section mb-6">
               <div className="mb-4 flex justify-between py-3">
                 <h1 className="text-3xl font-bold text-white">New Music</h1>
@@ -327,7 +333,6 @@ function Dashboard() {
                 <MusicList onSongSelect={setSelectSong} />
               </div>
             </section>
-
             <section className="song-section mb-6">
               <div className="mb-4 flex justify-between py-3">
                 <h1 className="text-3xl font-bold text-white">Popular</h1>
@@ -509,7 +514,6 @@ function Dashboard() {
                 </article>
               </div>
             </section>
-
             <section className="song-section mb-6">
               <div className="mb-4 flex justify-between py-3">
                 <h1 className="text-3xl font-bold text-white">Popular</h1>
@@ -691,6 +695,7 @@ function Dashboard() {
                 </article>
               </div>
             </section>
+            <Playlist />
           </div>
         </div>
       </section>
