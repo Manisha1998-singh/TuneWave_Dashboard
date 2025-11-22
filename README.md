@@ -201,3 +201,97 @@ Like:
 one version using useState (UI changes)
 
 one version using useRef (UI does not change)
+✅ 1. React.memo
+What it does:
+
+React.memo prevents a component from re-rendering unless its props change.
+
+Why you should use it:
+
+Your project has multiple components like:
+
+<MusicList />
+
+<SideBar />
+
+<LikedSongs />
+
+<Search />
+
+Some of these do not need to re-render every time unless props or Redux values change.
+
+Your project example:
+export default React.memo(MusicList);
+
+When it helps in your project:
+
+When you click on songs → only that song should re-render, not whole sidebar/dash.
+
+When switching tabs in sidebar → MusicList shouldn't render again if songs didn't change.
+
+When songs list is large → memo prevents unnecessary renders → faster UI.
+
+✅ 2. useEffect
+What it does:
+
+Runs a function after render.
+Used for:
+
+calling APIs
+
+adding event listeners
+
+updating document title
+
+syncing state
+
+Your project example:
+
+You use useEffect for API calls:
+
+useEffect(() => {
+dispatch(fetchSongs());
+}, [dispatch]);
+
+Why it's needed in your project:
+
+Fetch songs only once when MusicList loads.
+
+Update UI when URL, tab, or Redux state changes.
+
+Avoid running API calls multiple times.
+
+Other examples in your music player:
+
+Play / pause audio when selected song changes.
+
+Save liked songs to localStorage.
+
+✅ 3. useMemo
+What it does:
+
+Caches a calculation so it doesn’t re-calculate on every render.
+
+Why use it in your project:
+
+Your songs list may be large (50–200 songs).
+Filtering, sorting, or finding a song every time is expensive.
+
+Example based on your project:
+const filteredSongs = useMemo(() => {
+return songs.filter((song) =>
+song.title.toLowerCase().includes(searchText.toLowerCase())
+);
+}, [songs, searchText]);
+
+What this does:
+
+When typing in search bar → only re-calculates filtered songs when needed.
+
+Prevents slow rendering when large data list.
+
+🎯 Summary (Easy to remember)
+Hook / Feature What it does Why YOU use it in your project
+React.memo Stops unnecessary re-renders Sidebar, MusicList, LikedSongs should NOT re-render every time
+useEffect Runs code after render Fetch API, load songs, play/pause audio
+useMemo Caches calculated values Search filter, sorting, expensive loops on songs list

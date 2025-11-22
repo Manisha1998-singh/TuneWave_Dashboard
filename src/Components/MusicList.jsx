@@ -1,31 +1,34 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import { fetchSongs } from "../features/musicSlice";
 
 function MusicList({ onSongSelect }) {
   const dispatch = useDispatch();
   const { songs = [], loading } = useSelector((state) => state.music);
-  const [isPlaying, setIsPlaying] = useState();
-  // const [artist, setArtist] = useState();
+  const [currentTrack, setCurrentTrack] = useState(null);
+  const audioRef = useRef(new Audio());
 
   useEffect(() => {
     dispatch(fetchSongs("arijit singh"));
   }, [dispatch]);
 
-  const audioRef = useRef(null);
-
-  const handlePlay = () => {
+  const handlePlay = (song) => {
     if (!audioRef.current) return;
 
     // Toggle play/pause
-    if (audioRef.current.paused) {
-      audioRef.current.play();
-      setIsPlaying(false);
-    } else {
-      audioRef.current.pause();
-      setIsPlaying(true);
+    if (currentTrack === song.trackId) {
+      if (audioRef.current.paused) {
+        audioRef.current.play();
+      } else {
+        audioRef.current.pause();
+      }
+      return;
     }
+
+    audioRef.current.pause();
+    audioRef.current.src = song.previewUrl;
+    audioRef.current.play();
+    setCurrentTrack(song.trackId);
   };
   return (
     <div style={{ padding: "20px" }}>
@@ -42,8 +45,12 @@ function MusicList({ onSongSelect }) {
                 <article className="song-cover relative h-[290px] w-[210px] overflow-hidden rounded-lg bg-zinc-800/30 hover:bg-zinc-800/90 transition-all p-3 drop-shadow-lg">
                   <button
                     className="absolute right-4 top-36 rounded-full bg-green-500 p-3"
-                    onClick={handlePlay}>
-                    {isPlaying ? (
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePlay(song);
+                    }}>
+                    {currentTrack === song.trackId &&
+                    !audioRef.current.paused ? (
                       // PAUSE SVG
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -75,10 +82,7 @@ function MusicList({ onSongSelect }) {
                       </svg>
                     )}
                   </button>
-                  <audio
-                    ref={audioRef}
-                    src={song.previewUrl}
-                    className="hidden"></audio>
+
                   <img
                     className="h-[60%] w-full object-cover"
                     src={song.artworkUrl100}
