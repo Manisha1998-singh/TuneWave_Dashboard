@@ -10,11 +10,6 @@ export const fetchSongs = createAsyncThunk(
     return data.results; // Deezer returns songs inside "data"
   }
 );
-// const response = await fetch(
-//   `https://cors-anywhere.herokuapp.com/https://itunes.apple.com/search?term=arijit+singh&entity=song&limit=150`
-// );
-// const data = await response.json();
-// console.log(data);
 
 const musicSlice = createSlice({
   name: "music",

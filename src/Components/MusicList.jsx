@@ -29,9 +29,11 @@ function MusicList({ onSongSelect }) {
   };
   return (
     <div style={{ padding: "20px" }}>
-      <h2>🎧 iTunes Music Search</h2>
+      <h2 className="text-white">🎧 iTunes Music Search</h2>
 
-      <div style={{ marginTop: "20px" }} className="flex flex-wrap gap-3">
+      <div
+        style={{ marginTop: "20px" }}
+        className="flex flex-wrap justify-between">
         {songs.length > 0
           ? songs.slice(0, 20).map((song) => (
               <div
@@ -85,7 +87,8 @@ function MusicList({ onSongSelect }) {
 
                   {/* <h1 className="mt-3 text-white">Artist 1</h1> */}
                   <p className="mt-2 overflow-hidden truncate text-ellipsis text-sm text-white">
-                    <b>{song.trackName}</b> — {song.artistName}
+                    <b className="text-lg">{song.trackName}</b>
+                    <p>{song.artistName}</p>
                   </p>
                 </article>
               </div>

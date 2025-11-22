@@ -3,13 +3,13 @@ import React from "react";
 function SideBar({ activeTab, setActiveTab }) {
   return (
     <div className="h-full w-3/12 min-w-[198px] max-w-[330px] bg-black px-4">
-      <div>
-        <button className="py-2 px-4">
+      <div className="flex flex-col gap-2">
+        <button className="flex cursor-pointer items-center justify-start gap-5 py-3 px-4 text-white/80 transition-all hover:text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth="1.5"
+            strokeWidth="2.5" // ← make it thicker (2, 2.5, 3)
             stroke="currentColor"
             className="h-8 w-8 stroke-white">
             <path
@@ -18,7 +18,9 @@ function SideBar({ activeTab, setActiveTab }) {
               d="M9 19V6l11-2v13M9 19a3 3 0 11-6 0 3 3 0 016 0zm11-2a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg>
-        </button>
+
+          <label className="text-white text-xl font-bold ">TuneWave</label>
+        </button>{" "}
       </div>
       <ul className="flex flex-col gap-2">
         <li className="flex cursor-pointer items-center justify-start gap-5 py-3 px-4 text-white/80 transition-all hover:text-white">
@@ -93,10 +95,10 @@ function SideBar({ activeTab, setActiveTab }) {
 
           <button
             className={`font-medium text-white hover:text-green-500 ${
-              activeTab === " playlist" ? "bg-gray-800" : ""
+              activeTab === "playlist" ? "bg-gray-800" : ""
             }`}
             activeTab={activeTab}
-            onClick={() => setActiveTab(" playlist")}>
+            onClick={() => setActiveTab("playlist")}>
             {" "}
             Playlist{" "}
           </button>
@@ -137,9 +139,9 @@ function SideBar({ activeTab, setActiveTab }) {
 
           <button
             className={`font-medium text-white hover:text-green-500 ${
-              activeTab === " likedSongs" ? "bg-gray-800" : ""
+              activeTab === "likedSongs" ? "bg-gray-800" : ""
             }`}
-            onClick={() => setActiveTab(" likedSongs")}>
+            onClick={() => setActiveTab("likedSongs")}>
             {" "}
             Liked Songs{" "}
           </button>
