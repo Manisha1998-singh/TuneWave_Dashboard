@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSongs } from "../features/musicSlice";
 
@@ -12,24 +18,29 @@ function MusicList({ onSongSelect }) {
     dispatch(fetchSongs("arijit singh"));
   }, [dispatch]);
 
-  const handlePlay = (song) => {
-    if (!audioRef.current) return;
+  const handlePlay = useCallback(
+    (song) => {
+      if (!audioRef.current) return;
 
-    // Toggle play/pause
-    if (currentTrack === song.trackId) {
-      if (audioRef.current.paused) {
-        audioRef.current.play();
-      } else {
-        audioRef.current.pause();
+      // Toggle play/pause
+      if (currentTrack === song.trackId) {
+        if (audioRef.current.paused) {
+          audioRef.current.play();
+        } else {
+          audioRef.current.pause();
+        }
+        return;
       }
-      return;
-    }
 
-    audioRef.current.pause();
-    audioRef.current.src = song.previewUrl;
-    audioRef.current.play();
-    setCurrentTrack(song.trackId);
-  };
+      audioRef.current.pause();
+      audioRef.current.src = song.previewUrl;
+      audioRef.current.play();
+      setCurrentTrack(song.trackId);
+    },
+    [currentTrack]
+  );
+
+  const visibleSongs = useMemo(() => songs.slice(0, 20), [songs]);
   return (
     <div style={{ padding: "20px" }}>
       <h2 className="text-white">🎧 iTunes Music Search</h2>
@@ -37,11 +48,9 @@ function MusicList({ onSongSelect }) {
       <div
         style={{ marginTop: "20px" }}
         className="flex flex-wrap justify-between">
-        {songs.length > 0
-          ? songs.slice(0, 20).map((song) => (
-              <div
-                key={song.trackId}
-                onClick={() => onSongSelect && onSongSelect(song)}>
+        {visibleSongs.length > 0
+          ? visibleSongs.map((song) => (
+              <div key={song.trackId} onClick={() => onSongSelect?.(song)}>
                 <article className="song-cover relative h-[290px] w-[210px] overflow-hidden rounded-lg bg-zinc-800/30 hover:bg-zinc-800/90 transition-all p-3 drop-shadow-lg">
                   <button
                     className="absolute right-4 top-36 rounded-full bg-green-500 p-3"
@@ -103,4 +112,4 @@ function MusicList({ onSongSelect }) {
   );
 }
 
-export default MusicList;
+export default React.memo(MusicList);

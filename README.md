@@ -295,3 +295,33 @@ Hook / Feature What it does Why YOU use it in your project
 React.memo Stops unnecessary re-renders Sidebar, MusicList, LikedSongs should NOT re-render every time
 useEffect Runs code after render Fetch API, load songs, play/pause audio
 useMemo Caches calculated values Search filter, sorting, expensive loops on songs list
+🟦 What is RTK Query? (Very Simple Explanation)
+
+RTK Query is a built-in data-fetching tool inside Redux Toolkit that helps you fetch API data without writing thunks, reducers, loading states, error states, etc.
+
+✨ Without RTK Query (your current code)
+
+You must create:
+✔ createAsyncThunk
+✔ extraReducers
+✔ loading state
+✔ error state
+✔ store update manually
+
+✨ With RTK Query
+
+You only write 1 small API slice, and RTK Query automatically:
+✔ Fetches data
+✔ Caches data
+✔ Handles loading & error states
+✔ Refetches only when needed
+✔ Saves code (80% less code)
+
+🟩 Why do we need RTK Query?
+
+✔ Cleaner code
+✔ Faster development
+✔ Automatic caching
+✔ Automatic re-fetching only when required
+✔ No need to write reducers for every API
+✔ Best practice for medium/large apps

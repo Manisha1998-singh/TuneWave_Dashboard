@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useCallback } from "react";
 import MusicList from "../Components/MusicList";
 import BackButton from "../Components/BackButton";
 
 function Playlist() {
+  const noop = useCallback(() => {}, []);
   return (
     <div>
       <BackButton />
-      <MusicList />
+      <MusicList onSongSelect={noop} />
     </div>
   );
 }
-
-export default Playlist;
+export default React.memo(Playlist);

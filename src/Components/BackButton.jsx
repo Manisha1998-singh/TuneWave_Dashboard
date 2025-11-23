@@ -1,7 +1,8 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 //import { ArrowLeft } from "lucide-react";
 
-export default function BackButton() {
+function BackButton() {
   const navigate = useNavigate();
 
   return (
@@ -16,3 +17,5 @@ export default function BackButton() {
     </button>
   );
 }
+
+export default React.memo(BackButton);

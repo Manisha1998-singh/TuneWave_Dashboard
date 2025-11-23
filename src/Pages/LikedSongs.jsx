@@ -4,4 +4,4 @@ function LikedSongs() {
   return <div> hii manishaa</div>;
 }
 
-export default LikedSongs;
+export default React.memo(LikedSongs);

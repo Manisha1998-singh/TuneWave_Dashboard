@@ -152,4 +152,4 @@ function SideBar({ activeTab, setActiveTab }) {
   );
 }
 
-export default SideBar;
+export default React.memo(SideBar);
