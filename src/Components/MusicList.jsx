@@ -93,6 +93,7 @@ function MusicList({ onSongSelect }) {
                   </button>
 
                   <img
+                    loading="lazy"
                     className="h-[60%] w-full object-cover"
                     src={song.artworkUrl100}
                     alt={song.trackName}
